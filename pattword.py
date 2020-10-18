@@ -1,5 +1,5 @@
 import hashlib
-from os import path
+from os import path, system
 import random
 import sys
 import string
@@ -70,14 +70,14 @@ def save():
         return
 
     # write salt for hasher into file
-    #FILE_NAME = path.dirname(sys.argv[0])
-    FILE_NAME = "super_secret_seed" # TODO change maybe; idea:    path.dirname(sys.argv[0])
+    FILE_NAME = "hash_salt"
     if path.exists(FILE_NAME):
         salt = open(FILE_NAME, "r").read()
     else:
         random.seed(None)
         salt = "".join([hex(random.randint(0, 15)).lstrip("0x") for i in range(random.randint(10, 30))])
         open(FILE_NAME, "w").write(salt)
+        system("attrib +h " + FILE_NAME)
 
     SPECIAL = "!@#$%^&?()[]{}/\\"
     hash_bytes = hashlib.sha1((salt + path_string).encode("utf-8")).digest()
