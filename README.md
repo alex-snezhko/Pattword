@@ -9,4 +9,4 @@ Research supports that humans are much better at remembering visual patterns tha
 
 Pattword's interface looks very similar to the pattern password option available on android devices, as this is where we got our inspiration from.
 
-The program can be run by simply cloning the repository and running the python script. Make sure that you do not move the script from its initial path that it was run in.
+The program can be run by simply cloning the repository and running the python script. Make sure that you do not move the script from its initial path that it was run in, for the security features to work properly.
