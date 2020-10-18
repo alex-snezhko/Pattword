@@ -71,13 +71,15 @@ def save():
 
     # write salt for hasher into file
     FILE_NAME = "hash_salt"
-    if path.exists(FILE_NAME):
-        salt = open(FILE_NAME, "r").read()
+    DIR_NAME = path.dirname(path.realpath(sys.argv[0]))
+    PATH = DIR_NAME + "/" + FILE_NAME
+
+    if path.exists(PATH):
+        salt = open(PATH, "r").read()
     else:
         random.seed(None)
         salt = "".join([hex(random.randint(0, 15)).lstrip("0x") for i in range(random.randint(10, 30))])
-        open(FILE_NAME, "w").write(salt)
-        system("attrib +h " + FILE_NAME)
+        open(PATH, "a").write(salt)
 
     SPECIAL = "!@#$%^&?()[]{}/\\"
     hash_bytes = hashlib.sha1((salt + path_string).encode("utf-8")).digest()
@@ -90,8 +92,6 @@ def save():
     TOTAL = string.ascii_letters + string.digits + SPECIAL
 
     password = special_char + cap_char + num_char + "".join([TOTAL[b & 0x3F] for b in hash_bytes])
-    print(password)
-    print(path_string)
 
     # put a text box on the screen with the password pasted in
     hash_text.pack()
@@ -158,6 +158,7 @@ def process_click(event):
 
 root = tk.Tk()
 root.geometry("300x450")
+root.title("Pattword")
 
 # define a canvas to draw the points on
 canv = tk.Canvas(root, width=300, height=300)
